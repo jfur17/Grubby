@@ -88,8 +88,7 @@ function update(req, res, next) {
     const reqOrderId = req.body.data.id;
     const paramsOrderId = req.params.ordersId;
 
-    const foundOrder = orders.find((order) => order.id == paramsOrderId);
-    console.log(foundOrder)
+    const foundOrder = res.locals.order
     if( reqOrderId && (reqOrderId !== paramsOrderId)) {
         return next(
             {status: 400, message: `Order id ${reqOrderId} does not match ${paramsOrderId}`})
@@ -138,7 +137,7 @@ function update(req, res, next) {
 function destroy(req, res, next) {
     const { ordersId } = req.params;
     const index = orders.findIndex((order) => order.id === Number(ordersId));
-    const foundOrder = orders.find((order) => order.id == ordersId);
+    const foundOrder = res.locals.order
     if (ordersId && foundOrder && (foundOrder.status !== "pending")){
         return next({
             status: 400,

@@ -88,7 +88,7 @@ function update(req, res, next) {
             {status: 400, message: `Dish id ${storeDishId} does not match ${paramDishId}`})
     }
 
-    const foundDish = dishes.find((dish) => dish.id == paramDishId);
+    const foundDish = res.locals.dish;
     const { data: { id, name, description, price, image_url } = {} } = req.body;
 
     foundDish.name = name;
